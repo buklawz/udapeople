@@ -207,7 +207,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      amazon/aws-cli
+      - image: amazon/aws-cli
     steps:
       # Checkout code from git
       - checkout
@@ -228,8 +228,8 @@ jobs:
             cd /dist
             s3 copy 
       # Here's where you will add some code to rollback on failure      
-    - destroy-environment:
-      when: on_fail
+      - destroy-environment:
+        when: on_fail
 
   deploy-backend:
     docker:
