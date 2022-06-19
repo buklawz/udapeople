@@ -128,8 +128,8 @@ jobs:
     docker:
       - image: amazon/aws-cli 
     steps:
-     - checkout
-     - run:
+      - checkout
+      - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \
@@ -145,19 +145,19 @@ jobs:
               --tags project="udapeople" \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-       - run:
+      - run:
            name: Add back-end ip to ansible inventory
            command: |
               aws ec2 describe-instances \
               --filters "Name=tag:Name,Values=backend--${CIRCLE_WORKFLOW_ID:0:7}" \
               --query 'Reservations[*].Instances[*].PublicIPAddress' \
               --output text >> .circleci/ansible/inventory.txt
-       - persist_to_workspace:
+    - persist_to_workspace:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt   
-       - destroy-environment:
-         when: on_fail
+    - destroy-environment:
+      when: on_fail
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
