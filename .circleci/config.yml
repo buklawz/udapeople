@@ -228,8 +228,8 @@ jobs:
             cd /dist
             s3 copy 
       # Here's where you will add some code to rollback on failure      
-      - destroy-environment:
-       when: on_fail
+    - destroy-environment:
+      when: on_fail
 
   deploy-backend:
     docker:
