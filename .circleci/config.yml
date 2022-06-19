@@ -128,12 +128,12 @@ jobs:
     docker:
       - image: amazon/aws-cli 
     steps:
-    - checkout:
+     - checkout:
        branches:
         only:
           - master
           - /rc-.*/
-      - run:
+     - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \
@@ -174,19 +174,19 @@ jobs:
        # attach workspace
      - attach_workspace: 
          at: ~/
-      - run:
+     - run:
           name: Install dependencies
           command: |
             apk add --update ansible
             
-      - run:
+     - run:
           name: Configure server
           command: |
             ansible-playbook -i inventory.txt main.yaml --private-key=~/udapeople.pem
             
       # Here's where you will add some code to rollback on failure      
-     - destroy-environment:
-       when: on_fail
+      - destroy-environment:
+        when: on_fail
 
   run-migrations:
     docker:
@@ -205,8 +205,8 @@ jobs:
             # Your code here
             exit 1
      # Here's where you will add some code to rollback on failure      
-    - destroy-environment:
-      when: on_fail
+      - destroy-environment:
+        when: on_fail
 
   deploy-frontend:
     docker:
@@ -231,7 +231,7 @@ jobs:
             cd /dist
             s3 copy 
       # Here's where you will add some code to rollback on failure      
-     - destroy-environment:
+      - destroy-environment:
        when: on_fail
 
   deploy-backend:
@@ -254,8 +254,8 @@ jobs:
           name: Deploy backend
           command: |
             # your code here
-    - destroy-environment:
-      when: on_fail
+      - destroy-environment:
+        when: on_fail
 
   smoke-test:
     docker:
@@ -291,8 +291,8 @@ jobs:
             else
                return 1
             fi
-    - destroy-environment:
-      when: on_fail
+       - destroy-environment:
+         when: on_fail
 
   cloudfront-update:
     docker:
@@ -310,8 +310,8 @@ jobs:
             --stack-name production-distro \
             --parameter-overrides PipelineID="${S3_BUCKET_NAME}" \ # Name of the S3 bucket you created manually.
             --tags project=udapeople &
-    - destroy-environment:
-      when: on_fail       
+      - destroy-environment:
+        when: on_fail       
 cleanup:
     docker:
       - image: amazon/aws-cli
