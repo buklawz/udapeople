@@ -157,7 +157,7 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt   
       - destroy-environment:
-        when: on_fail
+         when: on_fail
         
   configure-infrastructure:
     docker:
@@ -183,7 +183,7 @@ jobs:
             
       # Here's where you will add some code to rollback on failure      
      - destroy-environment:
-       when: on_fail
+        when: on_fail
 
   run-migrations:
     docker:
@@ -203,7 +203,7 @@ jobs:
             exit 1
      # Here's where you will add some code to rollback on failure      
       - destroy-environment:
-        when: on_fail
+         when: on_fail
 
   deploy-frontend:
     docker:
@@ -229,7 +229,7 @@ jobs:
             s3 copy 
       # Here's where you will add some code to rollback on failure      
       - destroy-environment:
-        when: on_fail
+         when: on_fail
 
   deploy-backend:
     docker:
@@ -252,7 +252,7 @@ jobs:
           command: |
             # your code here
       - destroy-environment:
-        when: on_fail
+         when: on_fail
 
   smoke-test:
     docker:
@@ -289,7 +289,7 @@ jobs:
                return 1
             fi
       - destroy-environment:
-        when: on_fail
+         when: on_fail
 
   cloudfront-update:
     docker:
@@ -308,7 +308,7 @@ jobs:
             --parameter-overrides PipelineID="${S3_BUCKET_NAME}" \ # Name of the S3 bucket you created manually.
             --tags project=udapeople &
       - destroy-environment:
-        when: on_fail       
+         when: on_fail       
 cleanup:
     docker:
       - image: amazon/aws-cli
