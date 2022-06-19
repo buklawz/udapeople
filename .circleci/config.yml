@@ -156,8 +156,8 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt   
-      - destroy-environment:
-         when: on_fail
+    destroy-environment:
+    when: on_fail
         
   configure-infrastructure:
     docker:
@@ -182,8 +182,8 @@ jobs:
             ansible-playbook -i inventory.txt main.yaml --private-key=~/udapeople.pem
             
       # Here's where you will add some code to rollback on failure      
-     - destroy-environment:
-        when: on_fail
+    destroy-environment:
+    when: on_fail
 
   run-migrations:
     docker:
@@ -202,8 +202,8 @@ jobs:
             # Your code here
             exit 1
      # Here's where you will add some code to rollback on failure      
-      - destroy-environment:
-         when: on_fail
+    destroy-environment:
+    when: on_fail
 
   deploy-frontend:
     docker:
@@ -228,8 +228,8 @@ jobs:
             cd /dist
             s3 copy 
       # Here's where you will add some code to rollback on failure      
-      - destroy-environment:
-         when: on_fail
+    destroy-environment:
+    when: on_fail
 
   deploy-backend:
     docker:
@@ -239,7 +239,7 @@ jobs:
       # Checkout code from git
       # Add ssh keys with fingerprint
       # attach workspace
-      - checkout:
+      - checkout
       - ssh_fingerprints: ["e6:9d:08:a5:be:0c:7a:99:ca:f5:d0:fd:b2:63:03:c7"]
       - attach_workspace: 
          at: ~/
@@ -251,8 +251,8 @@ jobs:
           name: Deploy backend
           command: |
             # your code here
-      - destroy-environment:
-         when: on_fail
+    destroy-environment:
+    when: on_fail
 
   smoke-test:
     docker:
@@ -288,8 +288,8 @@ jobs:
             else
                return 1
             fi
-      - destroy-environment:
-         when: on_fail
+    destroy-environment:
+    when: on_fail
 
   cloudfront-update:
     docker:
@@ -307,8 +307,8 @@ jobs:
             --stack-name production-distro \
             --parameter-overrides PipelineID="${S3_BUCKET_NAME}" \ # Name of the S3 bucket you created manually.
             --tags project=udapeople &
-      - destroy-environment:
-         when: on_fail       
+    destroy-environment:
+    when: on_fail       
 cleanup:
     docker:
       - image: amazon/aws-cli
