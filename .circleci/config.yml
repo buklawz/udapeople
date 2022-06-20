@@ -6,8 +6,6 @@ commands:
     parameters:
       workflow_id: 
         type: string
-      event:
-        type: string
     steps:
       - run:
           name: Destroy environment
@@ -23,8 +21,6 @@ commands:
     parameters: 
       workflow_id: 
         type: string  
-      event: 
-        type: string
     steps:
       - run:
           name: Revert migrations
@@ -162,8 +158,6 @@ jobs:
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           
-   
-        
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -172,7 +166,6 @@ jobs:
       # Add ssh keys with fingerprint
      - add_ssh_keys:
          fingerprints: ["e6:9d:08:a5:be:0c:7a:99:ca:f5:d0:fd:b2:63:03:c7"]
-
      - attach_workspace: 
          at: ~/
      - run:
@@ -258,18 +251,18 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive    
-       - destroy-environment:
-          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
-       - revert-migrations:
-          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
+      - revert-migrations:
+           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
     
   deploy-backend:
     docker:
       - image: python:3.7-alpine3.11
     steps:
-      
       - checkout
-      - ssh_fingerprints: ["e6:9d:08:a5:be:0c:7a:99:ca:f5:d0:fd:b2:63:03:c7"]
+      - add_ssh_keys:
+          fingerprints: ["e6:9d:08:a5:be:0c:7a:99:ca:f5:d0:fd:b2:63:03:c7"]
       - attach_workspace: 
          at: ~/
       - run:
@@ -308,8 +301,7 @@ jobs:
 
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-          event: on_fail
-
+  
   smoke-test:
     docker:
       - image: alpine:latest
@@ -344,14 +336,14 @@ jobs:
       - run:
           name: Frontend smoke test.
           command: |
-             URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
-            echo ${URL} 
-            if curl -s ${URL} | grep "Welcome"
-            then
-              return 0
-            else
-              return 1
-            fi
+              URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
+              echo ${URL} 
+              if curl -s ${URL} | grep "Welcome"
+              then
+               return 0
+              else
+               return 1
+              fi
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
@@ -386,7 +378,7 @@ jobs:
               echo OldWorkflowID: "${OldWorkflowID}"
               echo Current Workflow Id: "${CIRCLE_WORKFLOW_ID:0:7}"
 
-       - persist_to_workspace:
+      - persist_to_workspace:
           root: ~/
           paths:
             - OldWorkflowID.txt
@@ -395,7 +387,7 @@ jobs:
       - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
            
-cleanup:
+  cleanup:
     docker:
       - image: amazon/aws-cli
     steps:
