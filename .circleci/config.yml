@@ -222,7 +222,7 @@ jobs:
           command: |
                 echo " ====== Update apt and upgrade======= " 
 
-                sudo apt update && sudo apt upgrade
+                apt update && sudo apt upgrade
 
                 echo "=======Install python ============="
 
