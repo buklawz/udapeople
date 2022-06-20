@@ -225,22 +225,35 @@ jobs:
                 sudo apt update && sudo apt upgrade
 
                 echo "=======Install python ============="
-                
+
                 sudo apt-get install python -y 
+
                 echo "========== Install Pip =============="
+                
                 sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+                
                 sudo python get-pip.py --user
+                
                 echo "======= Install Ansible =========="
+                
                 sudo python -m pip install --user ansible
+                
                 echo "========== Nodejs ============"
+                
                 sudo apt -y install nodejs
+                
                 echo "=========== Install npm ========="
+                
                 sudo apt -y install npm
+                
                 echo "========== Install tar and gzip ======="
+               
                sudo apt-get -y install tar gzip 
+               
                echo "========Download and install AWS/CLI"
                curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
                unzip awscliv2.zip
+               
                sudo ./aws/install  
 
       - run:
