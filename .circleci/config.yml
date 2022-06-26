@@ -89,6 +89,7 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
+      - checkout
       - restore_cache:
           keys: [backend-build]
       - run:
@@ -97,8 +98,7 @@ jobs:
              cd backend
              npm init -y && i --package-lock-only
              npm install
-             node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand
-             npm test      
+             npm run test      
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
