@@ -94,7 +94,7 @@ jobs:
       - run:
           name: Test Back-end
           command: |
-             cd backend/test
+             cd backend
              npm init -y
              npm i --package-lock-only
              npm run test         
