@@ -99,7 +99,7 @@ jobs:
              npm i --package-lock-only
              npm install
              npm audit fix
-             npm run test:e2e        
+             npm run test      
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
