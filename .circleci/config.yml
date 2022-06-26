@@ -97,7 +97,7 @@ jobs:
              cd backend
              npm init -y
              npm i --package-lock-only
-             npm run test         
+             npm run test:e2e        
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
