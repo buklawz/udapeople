@@ -127,7 +127,6 @@ jobs:
                cd backend
                npm init -y
                npm i --package-lock-only
-               npm install
                npm audit fix --audit-level=critical
                
       
