@@ -96,7 +96,6 @@ jobs:
           command: |
              cd backend
              npm i --package-lock-only
-             npm install
              npm run test            
   scan-frontend:
     docker:
