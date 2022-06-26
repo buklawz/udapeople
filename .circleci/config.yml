@@ -128,7 +128,6 @@ jobs:
                npm i --package-lock-only
                npm audit fix --audit-level=critical
                
-      
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli 
@@ -162,7 +161,6 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt   
-
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
           
@@ -181,13 +179,11 @@ jobs:
           command: |
             apk add --update tar gzip ansible nodejs npm
             pip install awscli
-            
      - run:
           name: Configure server
           command: |
             cd .circleci/ansible
-            ansible-playbook -i inventory.txt configure-server.yml
-                           
+            ansible-playbook -i inventory.txt configure-server.yml                           
      - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
   
@@ -196,7 +192,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
-      - checkout
+      - checkout    
       - run:
           name: Run migrations
           command: |
@@ -243,7 +239,6 @@ jobs:
                 unzip awscliv2.zip
                 sudo ./aws/install  
                 echo "Done..."
-
       - run:
           name: Get backend url
           command: |
@@ -358,7 +353,6 @@ jobs:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-    
 
   cloudfront-update:
     docker:
@@ -396,7 +390,7 @@ jobs:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-           
+     
   cleanup:
     docker:
       - image: amazon/aws-cli
