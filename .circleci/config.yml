@@ -96,6 +96,8 @@ jobs:
           command: |
              cd backend
              npm i --package-lock-only
+             npm install
+             npm audit fix
              npm run test:e2e        
   scan-frontend:
     docker:
