@@ -107,6 +107,7 @@ jobs:
               cd frontend
               npm init -y
               npm i --package-lock-only
+              npm install
               npm audit fix --audit-level=critical
               
   scan-backend:
@@ -124,6 +125,7 @@ jobs:
                npm i --package-lock-only
                npm install
                npm audit fix --audit-level=critical
+               
       
   deploy-infrastructure:
     docker:
