@@ -51,7 +51,6 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
-
   build-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -68,7 +67,6 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
-
   test-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -83,8 +81,7 @@ jobs:
              npm init -y
              npm i --package-lock-only
              npm install
-             npm run test
-                
+             npm run test             
   test-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -111,8 +108,7 @@ jobs:
               npm init -y
               npm i --package-lock-only
               npm install
-              npm audit fix --audit-level=critical
-              
+              npm audit fix --audit-level=critical            
   scan-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -126,8 +122,7 @@ jobs:
                cd backend
                npm init -y
                npm i --package-lock-only
-               npm audit fix --audit-level=critical
-               
+               npm audit fix --audit-level=critical           
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli 
@@ -162,8 +157,7 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt   
       - destroy-environment:
-          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-          
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"       
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -186,7 +180,6 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml                           
      - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-  
   run-migrations:
     docker:
       - image: circleci/node:13.8.0
@@ -210,7 +203,6 @@ jobs:
              fi      
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-   
   deploy-frontend:
     docker:
       - image: amazon/aws-cli
@@ -259,8 +251,7 @@ jobs:
       - destroy-environment:
            workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
-           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-    
+           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
   deploy-backend:
     docker:
       - image: python:3.7-alpine3.11
@@ -306,7 +297,6 @@ jobs:
 
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-  
   smoke-test:
     docker:
       - image: alpine:latest
@@ -353,7 +343,6 @@ jobs:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-
   cloudfront-update:
     docker:
       - image: amazon/aws-cli
@@ -389,8 +378,7 @@ jobs:
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
-          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-     
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"  
   cleanup:
     docker:
       - image: amazon/aws-cli
@@ -432,7 +420,7 @@ workflows:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
             branches:
-              only: [test-feature-branch]
+              only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
