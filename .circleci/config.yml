@@ -105,6 +105,7 @@ jobs:
           name:  Scan the Frontend Dependencies
           command: |
               cd frontend
+              npm init -y
               npm i --package-lock-only
               npm audit fix --audit-level=critical
               
@@ -119,6 +120,7 @@ jobs:
           name:  Scan  Backend Dependencies
           command: |
                cd backend
+               npm init -y
                npm i --package-lock-only
                npm install
                npm audit fix --audit-level=critical
