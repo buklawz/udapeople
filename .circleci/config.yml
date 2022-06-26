@@ -95,11 +95,10 @@ jobs:
           name: Test Back-end
           command: |
              cd backend
-             npm init -y
-             npm i --package-lock-only
+             npm init -y && i --package-lock-only
              npm install
-             cd test
-             npm run test      
+             node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand
+             npm test      
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
