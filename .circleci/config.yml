@@ -96,7 +96,6 @@ jobs:
           name: Test Back-end
           command: |
              cd backend
-             npm init -y && i --package-lock-only
              npm install
              npm run test      
   scan-frontend:
