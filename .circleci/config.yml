@@ -119,9 +119,9 @@ jobs:
           name:  Scan  Backend Dependencies
           command: |
                cd backend
-              npm audit fix --audit-level=critical
-              npm install
-              npm audit --audit-level=critical
+               npm audit fix --audit-level=critical
+               npm install
+               npm audit --audit-level=critical
       
   deploy-infrastructure:
     docker:
