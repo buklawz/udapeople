@@ -98,7 +98,7 @@ jobs:
              npm init -y
              npm i --package-lock-only
              npm install
-             npm run test            
+             npm run test ./backend/test/*         
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
