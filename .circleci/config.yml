@@ -87,18 +87,17 @@ jobs:
                 
   test-backend:
     docker:
-      - image: circleci/node:14.7.0
+      - image: circleci/node:13.8.0
     steps:
       - restore_cache:
           keys: [backend-build]
       - run:
           name: Test Back-end
           command: |
-             cd backend
+             cd backend/test
              npm init -y
              npm i --package-lock-only
-             npm install
-             npm run test ./backend/test/*         
+             npm run test         
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
