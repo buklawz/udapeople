@@ -29,7 +29,7 @@ Resources:
       SecurityGroups:
         - Ref: InstanceSecurityGroup
       KeyName: vockey
-      ImageId: ami-0cff7528ff583bf9a 
+      ImageId: ami-08d4ac5b634553e16 
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
