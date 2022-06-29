@@ -190,8 +190,6 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm init -y
-            npm i --package-lock-only
             npm install
             npm run migrations > migrations_dump.txt
       - run:
