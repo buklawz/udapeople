@@ -192,6 +192,7 @@ jobs:
             cd backend
             npm install
             npm run migrations > migrations_dump.txt
+            cat /home/circleci/.npm/_logs/2022-06-29T00_28_35_628Z-debug.log
       - run:
           name: Send migration results to memstash
           command: |
