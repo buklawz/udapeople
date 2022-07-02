@@ -206,32 +206,23 @@ jobs:
           
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: circleci/python:3.8.2
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
-                echo " ====== Update apt and upgrade======= "
-                apt update && sudo apt upgrade
-                echo "=======Install python ============="
-                apt-get install python -y 
-                echo "========== Install Pip =============="
-                sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-                python get-pip.py --user
-                echo "======= Install Ansible =========="
-                python -m pip install --user ansible
-                echo "========== Nodejs ============"
-                apt -y install nodejs
-                echo "=========== Install npm ========="
-                apt -y install npm
-                echo "========== Install tar and gzip ======="
-                apt-get -y install tar gzip 
-                echo "========Download and install AWS/CLI"
-                curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-                unzip awscliv2.zip
-                ./aws/install  
-                echo "Done..."
+            sudo apt update && sudo apt upgrade
+            sudo apt-get install python -y 
+            sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+            sudo python get-pip.py --user
+            sudo python -m pip install --user ansible
+            sudo apt -y install nodejs
+            sudo apt -y install npm
+            sudo apt-get -y install tar gzip 
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install  
       - run:
           name: Get backend url
           command: |
@@ -255,11 +246,11 @@ jobs:
            workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: circleci/python:3.8.2
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["b2:a5:1e:f3:60:ed:44:c1:9e:b7:99:36:54:e7:dd:43:23:08:22:91"]
+          fingerprints: ["24:9e:99:22:83:89:83:03:0f:df:9c:3e:d7:7c:9a:4a"]
       - attach_workspace: 
          at: ~/
       - run:
