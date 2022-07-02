@@ -1,2 +1,1 @@
 [web]
-ansible_ssh_private_key={{ }}
