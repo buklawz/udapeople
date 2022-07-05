@@ -1,1 +1,18 @@
 ## Deployment playbook goes here.
+---
+
+- name: "extract artifact."
+  unarchive:
+    src: /root/project/artifact.tar.gz
+    dest: /home/ubuntu/
+
+- name: "stop app."
+  become: true
+  shell: pm2 stop default
+  ignore_errors: yes
+
+- name: "start app."
+  become: true
+  shell: |
+    npm install
+    pm2 start npm -- start
