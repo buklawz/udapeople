@@ -278,8 +278,8 @@ jobs:
             echo "echo from backend"
             cd ..
             tar -C backend -czvf artifact.tar.gz .
-            mkdir -p ~/project/.circleci/ansible/roles/deploy/files
-            cp artifact.tar.gz  .circleci/ansible/roles/deploy/files
+            mkdir -p /root/project/
+            cp artifact.tar.gz  /root/project/
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
