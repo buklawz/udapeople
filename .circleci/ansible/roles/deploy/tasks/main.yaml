@@ -1,7 +1,7 @@
 ---
 - name: "extract artifact."
   unarchive:
-    src: ~/project/.circleci/ansible/deploy/files
+    src: /root/project/artifact.tar.gz
     dest: /home/ubuntu/
 
 - name: "start app."
