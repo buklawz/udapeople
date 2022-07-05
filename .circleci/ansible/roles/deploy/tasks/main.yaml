@@ -1,0 +1,11 @@
+---
+- name: "extract artifact."
+  unarchive:
+    src: /files/artifact.tar.gz
+    dest: /home/ubuntu/
+
+- name: "start app."
+  become: true
+  shell: |
+    npm install
+    pm2 start npm -- start
