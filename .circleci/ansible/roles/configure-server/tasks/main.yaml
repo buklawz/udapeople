@@ -23,7 +23,6 @@
     shell: n 13.8.0
 
   - name: "install pm2"
-    user: ubuntu
     become: true
     npm:
       name: pm2
