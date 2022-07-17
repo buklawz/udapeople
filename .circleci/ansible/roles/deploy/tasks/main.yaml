@@ -1,12 +1,15 @@
 ---
 
 - name: "extract artifact."
+  become: true
+  become_user: root
   unarchive:
     src: /root/project/artifact.tar.gz
     dest: /home/ubuntu/
 
 - name: "start app."
   become: true
+  become_user: root
   shell: |
     npm install
     pm2 start npm -- start
