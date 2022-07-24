@@ -19,14 +19,11 @@ describe('Employee Remover', () => {
       const handler = new EmployeeActivator(employeeRepository);
 
       const params = {
-        employeeId: 100, 
-        isActive: false,
+        employeeId: 100,
+        isActive: false
       };
 
-      const activateEmployeeCommand = new ActivateEmployee(
-        params.employeeId,
-        params.isActive,
-      );
+      const activateEmployeeCommand = new ActivateEmployee(params.employeeId, params.isActive);
 
       // Act
       await handler.handle(activateEmployeeCommand);
