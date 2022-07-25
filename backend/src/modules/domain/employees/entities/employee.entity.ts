@@ -1,4 +1,4 @@
-import * as moment from 'moment-timezone';
+const moment = require("moment-timezone")
 import { AggregateRoot } from '../../../common/entities';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { CreateEmployee } from '../commands/create-employee.command';
@@ -32,7 +32,7 @@ export class Employee extends AggregateRoot<number> {
       this.birthdate = getDateFromString(params.birthdate);
     }
 
-    // this.apply(new EmployeeCreated(this.id, this.firstName));
+   this.apply(new EmployeeCreated(this.id, this.firstName));
   }
 
   @PrimaryGeneratedColumn()
@@ -60,10 +60,10 @@ export class Employee extends AggregateRoot<number> {
   public personalEmail: string;
 
   @Column({ nullable: true })
-  public birthdate: string;
+  public birthdate: Date;
 
   @Column()
-  public startDate: String;
+  public startDate: Date;
 
   @Column({ length: 200, nullable: true })
   public address: string;
@@ -93,7 +93,7 @@ export class Employee extends AggregateRoot<number> {
   public city: string;
 
   @Column()
-  public effectiveDate: String;
+  public effectiveDate: Date;
 
   @Column('decimal')
   public salary: number;
@@ -118,8 +118,8 @@ export enum SalaryType {
   HOURLY = 'hourly',
 }
 
-export function getDateFromString(date: string): string {
-  return moment(date).format('M/D/YYYY')
+export function getDateFromString(date: string): Date {
+  return moment(date).format('M/D/YYYY');
 }
 
 function getGenderFromEnum(gender: string): Gender {
