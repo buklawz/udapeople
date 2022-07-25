@@ -180,7 +180,8 @@ jobs:
           command: |
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml                          
-     - destroy-environment
+     - destroy-environment:
+           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
   run-migrations:
     docker:
       - image: circleci/node:13.8.0
@@ -200,7 +201,8 @@ jobs:
               then
                 curl --insecure https://kvdb.io/HBpcdBjpaAbnhZ7FCjHTyK/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
               fi      
-      - revert-migrations
+      - revert-migrations:
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
                    
   deploy-frontend:
     docker:
@@ -240,8 +242,10 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive    
-      - destroy-environment
-      - revert-migrations
+      - destroy-environment:
+            workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
+      - revert-migrations:
+            workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
   deploy-backend:
     docker:
       - image: python:3.7-alpine3.11
@@ -283,8 +287,10 @@ jobs:
             echo "Contents  of the inventory.txt file is: "
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-      - destroy-environment       
-      - revert-migrations
+      - destroy-environment:
+           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"      
+      - revert-migrations:
+           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
   smoke-test:
     docker:
       - image: alpine:latest
@@ -327,8 +333,10 @@ jobs:
               else
                return 1
               fi
-      - destroy-environment      
-      - revert-migrations
+      - destroy-environment:
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"   
+      - revert-migrations:
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
   cloudfront-update:
     docker:
       - image: python:3.7-alpine3.11
@@ -357,8 +365,10 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/files/OldWorkflowID.txt
-      - destroy-environment       
-      - revert-migrations
+      - destroy-environment:
+            workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"      
+      - revert-migrations:
+            workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
   cleanup:
    docker:
      - image: amazon/aws-cli
