@@ -1,9 +1,13 @@
 1. URL01 Github Page: https://github.com/buklawz/udapeople
 
-2. URL02 S3 Bucket URL: http://udapeople-f23ecaf.s3-website-us-east-1.amazonaws.com/#/employees
+2. URL02 S3 Bucket URL: http://udapeople-6927792.s3-website-us-east-1.amazonaws.com/#/employees
 
-3. URL03 Cloudfront URL: https://d27ckueogb4m8i.cloudfront.net/#/employees 
+3. URL03 Cloudfront URL: https://d17jrf6tm597kx.cloudfront.net/#/employees
 
-4. URL04 Deployed Backend URL: https://ec2-54-197-12-187.compute-1.amazonaws.com:3030
+4. URL04 Deployed Backend URL: ec2-52-3-28-64.compute-1.amazonaws.com:3030
 
-5. URL05: Prometheus Server URL: http://ec2-54-91-241-192.compute-1.amazonaws.com:9090/
+5. URL05: Prometheus Server URL: http://54.234.193.71:9090/targets?search=
+
+
+Note: There is an error with the backend code that is making pm2 to fail, this needs a fix. Kindly
+see screenshot named error with code in the SCREENSHOT FOLDER.
