@@ -7,7 +7,7 @@ import { AppLogger } from './modules/app/app.logger';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as cors from 'cors';
 import { TransformInterceptor } from './modules/common/interceptors/TransformInterceptor';
-const express = require('express');
+import * as express from 'express';
 import { ErrorFilter } from './modules/errors/error.filter';
 
 async function bootstrap() {
