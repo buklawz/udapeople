@@ -6,7 +6,6 @@ import { EmployeeCreated } from '../events/employee-created.event';
 
 @Entity()
 export class Employee extends AggregateRoot<number> {
-  //change <string> to <number> above to fix the compile error
   constructor(params = {} as CreateEmployee) {
     super();
     if (params) {
@@ -37,7 +36,6 @@ export class Employee extends AggregateRoot<number> {
   }
 
   @PrimaryGeneratedColumn()
-  //change <string> to <number> in line 8 to fix the compile error
   id: number;
 
   @Column({ length: 100 })
@@ -62,10 +60,10 @@ export class Employee extends AggregateRoot<number> {
   public personalEmail: string;
 
   @Column({ nullable: true })
-  public birthdate: any;
+  public birthdate: Date;
 
   @Column()
-  public startDate: any;
+  public startDate: Date;
 
   @Column({ length: 200, nullable: true })
   public address: string;
@@ -95,7 +93,7 @@ export class Employee extends AggregateRoot<number> {
   public city: string;
 
   @Column()
-  public effectiveDate: any;
+  public effectiveDate: Date;
 
   @Column('decimal')
   public salary: number;
@@ -120,7 +118,7 @@ export enum SalaryType {
   HOURLY = 'hourly',
 }
 
-export function getDateFromString(date: string) {
+export function getDateFromString(date: string): Date {
   return moment(date).format('M/D/YYYY');
 }
 
