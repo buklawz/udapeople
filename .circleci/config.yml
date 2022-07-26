@@ -118,7 +118,7 @@ jobs:
           name:  Scan  Backend Dependencies
           command: |
                cd backend
-               npm audit fix --package-lock-only -force
+               npm audit fix --package-lock-only --force
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli 
