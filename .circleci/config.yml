@@ -105,9 +105,9 @@ jobs:
           name:  Scan the Frontend Dependencies
           command: |
               cd frontend
-              npm audit fix --audit-level=critical
+              npm audit fix --package-lock-only
               npm install
-              npm audit --audit-level=critical
+              npm audit fix --package-lock-only
   scan-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -119,9 +119,9 @@ jobs:
           name:  Scan  Backend Dependencies
           command: |
                cd backend
-               npm audit fix --audit-level=critical
+               npm audit fix --package-lock-only
                npm install
-               npm audit --audit-level=critical    
+               npm audit fix --package-lock-only  
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli 
