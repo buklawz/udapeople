@@ -117,7 +117,6 @@ jobs:
           name:  Scan  Backend Dependencies
           command: |
                cd backend
-               npm install --package-lock-only
                npm audit fix --package-lock-only  
   deploy-infrastructure:
     docker:
